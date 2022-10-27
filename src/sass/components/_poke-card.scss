@@ -1,0 +1,36 @@
+.poke-card {
+  display: flex;
+  height: 136px;
+  border-radius: $m-9;
+  box-shadow: $shadow-1;
+  overflow: hidden;
+  width: fit-content;
+
+  .poke-infos {
+    width: 170px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $m-8;
+    background-color: $color-white;
+
+    > h3 {
+      font-size: $h4;
+    }
+
+    > span {
+      display: flex;
+      gap: $m-9;
+    }
+  }
+
+  .poke-photo {
+    @include center-items;
+    width: 250px;
+
+    > img {
+      object-fit: cover;
+      transform: scale(0.5);
+    }
+  }
+}

@@ -1,6 +1,42 @@
-@import "./input-text";
+@import "./input-text", "./poke-card", "./popover";
 
 .container {
-    max-width: 950px;
-    margin: 0 auto;
+  max-width: 864px;
+  margin: 0 auto;
+}
+
+.bg-grey-gradient {
+  background: $grey-gradient;
+}
+
+.bg-blue-gradient {
+  background: $blue-gradient;
+}
+
+.bg-pink-gradient {
+  background: $pink-gradient;
+}
+
+.bg-green-gradient {
+  background: $green-gradient;
+}
+
+.bg-gold-gradient {
+  background: $gold-gradient;
+}
+
+.bg-yellow-gradient {
+  background: $yellow-gradient;
+}
+
+.bg-red-gradient {
+  background: $red-gradient;
+}
+
+.bg-purple-gradient {
+  background: $purple-gradient;
+}
+
+.bg-red-gradient-card {
+  background: $red-gradient-card;
 }
