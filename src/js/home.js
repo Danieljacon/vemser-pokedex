@@ -43,13 +43,30 @@ const getPokemon = async () => {
       type: pokemon.types.map((type) => {
         return type.type.name;
       }),
-      class: types.find((type) => {
-        if (pokemon.types[0].type.name === type.type) {
-          return type;
-        }
+      classes: pokemon.types.map((type) => {
+        return types.find((t) => t.type === type.type.name).class;
       }),
     };
     pokemons.push(pokemonObject);
+});
+console.log(pokemons);
+
+  pokemons.map((pokemon) => {
+    pokeCards.innerHTML += `
+        <div class="poke-card">
+            <div class="poke-infos">
+                <h3>${pokemon.name}</h3>
+                <span>
+                    <p class="popover bg-green-gradient">Grass</p>
+                    <p class="popover bg-purple-gradient">Poison</p>
+                </span>
+            </div>
+            <div class="poke-photo bg-green-gradient">
+                <img
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg">
+            </div>
+        </div>
+    `;
   });
 };
 
