@@ -33,8 +33,13 @@ header {
   @include center-items;
   flex-wrap: wrap;
   gap: $m-6;
+  padding-bottom: $m-4;
 
   animation: showCard 1s ease-in-out;
+
+  @media(max-width: 868px) {
+    padding: 0 $m-10;
+  }
 
   .poke-card {
     animation: showCard 1s ease-in-out;
