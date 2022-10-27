@@ -52,7 +52,17 @@ const pokemonCardsComponent = (name, type, classes, image) => {
     `;
 };
 
+const waitListComponent = () => {
+    return `
+    <span class="load-list">
+        <p>Aguarde carregar a lista de Pokémons!!</p>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/640px-Pok%C3%A9_Ball_icon.svg.png">
+    </span>
+    `;
+}
+
 const getPokemon = async () => {
+  pokeCards.innerHTML = waitListComponent();
   const response = await fetch(api);
   let pokemonsList = await response.json();
   const { results } = pokemonsList;
@@ -60,7 +70,8 @@ const getPokemon = async () => {
   const pokemonsFullList = await Promise.all(
     results.map(async (pokemon) => {
       const pokemonResponse = await fetch(pokemon.url);
-      return pokemonResponse.json();
+      const response = pokemonResponse.json();
+      return response;
     })
   );
 
@@ -79,6 +90,8 @@ const getPokemon = async () => {
     pokemons.push(pokemonObject);
   });
 
+  pokeCards.innerText = "";
+
   pokemons.map((pokemon) => {
     pokeCards.innerHTML += pokemonCardsComponent(
       pokemon.name,
@@ -95,7 +108,6 @@ const getPokemon = async () => {
     const filteredPokemons = pokemons.filter((pokemon) => {
       return pokemon.name.includes(search);
     });
-
 
     filteredPokemons.map((pokemon) => {
       pokeCards.innerHTML += pokemonCardsComponent(

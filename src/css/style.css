@@ -141,10 +141,48 @@ header h1 {
   font-weight: 300;
 }
 
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes showCard {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .poke-cards {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
   gap: 24px;
+  animation: showCard 1s ease-in-out;
+}
+.poke-cards .poke-card {
+  animation: showCard 1s ease-in-out;
+}
+
+.load-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.load-list > p {
+  font-size: 1.5rem;
+}
+.load-list > img {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 24px;
+  animation: rotate 1s linear infinite;
 }
