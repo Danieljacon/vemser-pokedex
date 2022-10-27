@@ -159,6 +159,14 @@ header h1 {
   font-size: 2.25rem;
   font-weight: 300;
 }
+@media (max-width: 868px) {
+  header {
+    padding: 24px 18px;
+  }
+  header h1 {
+    font-size: 1.5rem;
+  }
+}
 
 @keyframes rotate {
   0% {
@@ -189,7 +197,7 @@ header h1 {
 }
 @media (max-width: 868px) {
   .poke-cards {
-    padding: 0 6px;
+    padding: 0 18px;
   }
 }
 .poke-cards .poke-card {
@@ -210,4 +218,10 @@ header h1 {
   height: 100px;
   margin-bottom: 24px;
   animation: rotate 1s linear infinite;
+}
+@media (max-width: 868px) {
+  .load-list {
+    padding: 0 18px;
+    text-align: center;
+  }
 }
