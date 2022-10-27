@@ -1,4 +1,4 @@
-const api = `https://pokeapi.co/api/v2/pokemon/?limit=20`;
+const api = `https://pokeapi.co/api/v2/pokemon/?limit=151`;
 const pokeCards = document.getElementById("poke-cards");
 const inputSearchPokemons = document.getElementById("input-search-pokemon");
 
@@ -26,17 +26,17 @@ const types = [
 ];
 
 const getPokemonTypes = (pokemon) => {
-    return pokemon
-      .map((type) => {
-        return `<p class="popover ${
-          types.find((t) => t.type === type).class
-        }">${type}</p>`;
-      })
-      .join("");
-  };
+  return pokemon
+    .map((type) => {
+      return `<p class="popover ${
+        types.find((t) => t.type === type).class
+      }">${type}</p>`;
+    })
+    .join("");
+};
 
-  const pokemonCardsComponent = (name, type, classes, image) => {
-    return `
+const pokemonCardsComponent = (name, type, classes, image) => {
+  return `
         <div class="poke-card">
             <div class="poke-infos">
                 <h3>${name}</h3>
@@ -50,7 +50,7 @@ const getPokemonTypes = (pokemon) => {
             </div>
         </div>
     `;
-  };
+};
 
 const getPokemon = async () => {
   const response = await fetch(api);
@@ -86,6 +86,25 @@ const getPokemon = async () => {
       pokemon.classes[0],
       pokemon.image
     );
+  });
+
+  inputSearchPokemons.addEventListener("keyup", (e) => {
+    const search = e.target.value.toLowerCase();
+    pokeCards.innerHTML = "";
+
+    const filteredPokemons = pokemons.filter((pokemon) => {
+      return pokemon.name.includes(search);
+    });
+
+
+    filteredPokemons.map((pokemon) => {
+      pokeCards.innerHTML += pokemonCardsComponent(
+        pokemon.name,
+        pokemon.type,
+        pokemon.classes[0],
+        pokemon.image
+      );
+    });
   });
 };
 
