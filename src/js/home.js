@@ -48,8 +48,14 @@ const getPokemon = async () => {
       }),
     };
     pokemons.push(pokemonObject);
-});
-console.log(pokemons);
+  });
+  console.log(pokemons);
+
+  const getPokemonTypes = (pokemon) => {
+    return pokemon.map((type) => {
+        return `<p class="popover ${types.find((t) => t.type === type).class}">${type}</p>`;
+      }).join("");
+  };
 
   pokemons.map((pokemon) => {
     pokeCards.innerHTML += `
@@ -57,13 +63,12 @@ console.log(pokemons);
             <div class="poke-infos">
                 <h3>${pokemon.name}</h3>
                 <span>
-                    <p class="popover bg-green-gradient">Grass</p>
-                    <p class="popover bg-purple-gradient">Poison</p>
+                    ${getPokemonTypes(pokemon.type)}
                 </span>
             </div>
-            <div class="poke-photo bg-green-gradient">
+            <div class="poke-photo ${pokemon.classes[0]}">
                 <img
-                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg">
+                    src="${pokemon.image}">
             </div>
         </div>
     `;
