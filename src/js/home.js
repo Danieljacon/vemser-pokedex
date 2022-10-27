@@ -1,5 +1,7 @@
-const api = `https://pokeapi.co/api/v2/pokemon?&limit=40`;
+const api = `https://pokeapi.co/api/v2/pokemon/?limit=20`;
 const pokeCards = document.getElementById("poke-cards");
+const inputSearchPokemons = document.getElementById("input-search-pokemon");
+
 let pokemons = [];
 
 const types = [
@@ -23,8 +25,35 @@ const types = [
   { type: "steel", class: "bg-gray-gradient" },
 ];
 
+const getPokemonTypes = (pokemon) => {
+    return pokemon
+      .map((type) => {
+        return `<p class="popover ${
+          types.find((t) => t.type === type).class
+        }">${type}</p>`;
+      })
+      .join("");
+  };
+
+  const pokemonCardsComponent = (name, type, classes, image) => {
+    return `
+        <div class="poke-card">
+            <div class="poke-infos">
+                <h3>${name}</h3>
+                <span>
+                    ${getPokemonTypes(type)}
+                </span>
+            </div>
+            <div class="poke-photo ${classes}">
+                <img
+                    src="${image}">
+            </div>
+        </div>
+    `;
+  };
+
 const getPokemon = async () => {
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=40`);
+  const response = await fetch(api);
   let pokemonsList = await response.json();
   const { results } = pokemonsList;
 
@@ -49,29 +78,14 @@ const getPokemon = async () => {
     };
     pokemons.push(pokemonObject);
   });
-  console.log(pokemons);
-
-  const getPokemonTypes = (pokemon) => {
-    return pokemon.map((type) => {
-        return `<p class="popover ${types.find((t) => t.type === type).class}">${type}</p>`;
-      }).join("");
-  };
 
   pokemons.map((pokemon) => {
-    pokeCards.innerHTML += `
-        <div class="poke-card">
-            <div class="poke-infos">
-                <h3>${pokemon.name}</h3>
-                <span>
-                    ${getPokemonTypes(pokemon.type)}
-                </span>
-            </div>
-            <div class="poke-photo ${pokemon.classes[0]}">
-                <img
-                    src="${pokemon.image}">
-            </div>
-        </div>
-    `;
+    pokeCards.innerHTML += pokemonCardsComponent(
+      pokemon.name,
+      pokemon.type,
+      pokemon.classes[0],
+      pokemon.image
+    );
   });
 };
 
