@@ -3,19 +3,28 @@ const pokeCards = document.getElementById("poke-cards");
 let pokemons = [];
 
 const getPokemon = async () => {
-  for (let i = 0; i < 151; i++) {
-    const pokeApi = `https://pokeapi.co/api/v2/pokemon/${i + 1}`;
-    const response = await fetch(pokeApi);
-    let data = await response.json();
+  const response = await fetch(`https://pokeapi.co/api/v2/pokemon/?limit=40`);
+  let pokemonsList = await response.json();
+  const { results } = pokemonsList;
 
-    pokemons.push({
-      id: data.id,
-      name: data.name,
-      image: data.sprites.other.dream_world.front_default,
-      type: data.types.map((type) => type.type.name),
-    });
-  }
+  const pokemonsFullList = await Promise.all(
+    results.map(async (pokemon) => {
+      const pokemonResponse = await fetch(pokemon.url);
+      return pokemonResponse.json();
+    })
+  );
 
+  pokemonsFullList.map((pokemon) => {
+    const pokemonObject = {
+      id: pokemon.id,
+      name: pokemon.name,
+      image: pokemon.sprites.other["official-artwork"].front_default,
+      type: pokemon.types.map((type) => {
+        return type.type.name;
+      }),
+    };
+    pokemons.push(pokemonObject);
+  });
   console.log(pokemons);
 };
 
